@@ -49,7 +49,7 @@ unique = bubbleoutput[1];
 var done=false;
 var total= unique.length - 1;
 
-var finaltotal=total;
+var treedepth=0;
 
 var outputname=unique;
 var outputBinary=[];
@@ -82,6 +82,7 @@ while(!done){
         number = bubbleoutput[0];
         unique = bubbleoutput[1];
         
+        treedepth++;
         total--;
         console.log(currentAgregate);
 
@@ -106,9 +107,11 @@ let writeStream = fs.createWriteStream('Output.txt');
     writeStream.write(write + "\n", 'UTF-8');      
 }*/
 
-for(var a = 0; a < finaltotal;a++){
-    var write=number[a] + " " + unique[a];
-    writeStream.write(write + "\n", 'UTF-8');      
+var outputtotal;
+for(var a = treedepth; a > 0;a--){
+    
+    console.log();
+    
 }
 
 writeStream.on('finish', () => {  
