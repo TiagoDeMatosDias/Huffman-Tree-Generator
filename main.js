@@ -48,19 +48,51 @@ unique = bubbleoutput[1];
 
 var done=false;
 var total= unique.length - 1;
-var output=unique;
+
+var finaltotal=total;
+
+var outputname=unique;
+var outputBinary=[];
 var outputNumber = number;
 
 var hufftemp1;
 
-while(!done){
-    done = true;
-    
-    if(total!=1){
-        hufftemp1 = outputNumber[total] + outputNumber[total-1];
-        
-    }
+var maps=[];
 
+while(!done){
+        
+    for(var i = 0; i< total;i++){
+        
+        var currentAgregate = number[total] + number[total-1];
+        maps[i] = new Map();
+        var binaryA;
+        var binaryB;
+        var characterA;
+        var characterB;
+        maps[i].set(binaryA, 1);
+        maps[i].set(characterA, unique[total]);
+        maps[i].set(binaryB, 0);
+        maps[i].set(characterB, unique[total-1]);
+        number.splice(-2,2);
+        unique.splice(-2,2);
+        number.push(currentAgregate);
+        unique.push(maps[i]);
+        
+        bubbleoutput= bubbleSort(unique,number);
+        number = bubbleoutput[0];
+        unique = bubbleoutput[1];
+        
+        total--;
+        console.log(currentAgregate);
+
+
+    }
+    if(total ==0){
+        done = true;
+
+
+    }
+    
 }
 
 
@@ -68,7 +100,13 @@ while(!done){
 
 
 let writeStream = fs.createWriteStream('Output.txt');
-for(var a = 0; a< unique.length;a++){
+
+/*for(var a = 0; a< unique.length;a++){
+    var write=number[a] + " " + unique[a];
+    writeStream.write(write + "\n", 'UTF-8');      
+}*/
+
+for(var a = 0; a < finaltotal;a++){
     var write=number[a] + " " + unique[a];
     writeStream.write(write + "\n", 'UTF-8');      
 }
