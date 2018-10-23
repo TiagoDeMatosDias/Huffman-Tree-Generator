@@ -65,6 +65,7 @@ while(!done){
         
         var currentAgregate = number[total] + number[total-1];
         maps[i] = new Map();
+        /*
         var binaryA;
         var binaryB;
         var characterA;
@@ -73,6 +74,12 @@ while(!done){
         maps[i].set(characterA, unique[total]);
         maps[i].set(binaryB, 0);
         maps[i].set(characterB, unique[total-1]);
+        */
+
+        maps[i].set(unique[total].toString,1);
+        maps[i].set(unique[total-1].toString,1);
+
+
         number.splice(-2,2);
         unique.splice(-2,2);
         number.push(currentAgregate);
@@ -84,7 +91,11 @@ while(!done){
         
         treedepth++;
         total--;
-        console.log(currentAgregate);
+        console.log(maps[i].size);
+        //console.log(maps[i].get(characterB));
+
+
+
 
 
     }
@@ -110,7 +121,7 @@ let writeStream = fs.createWriteStream('Output.txt');
 var outputtotal;
 for(var a = treedepth; a > 0;a--){
     
-    console.log();
+    //console.log(maps[0].get(1));
     
 }
 
