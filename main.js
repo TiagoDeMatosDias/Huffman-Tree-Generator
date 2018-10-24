@@ -27,7 +27,7 @@ function bubbleSort(uniqueArray, numberArray){
             }
         }
     }
-    var bubbleout = [numberArray, uniqueArray];
+    var bubbleout = [numberArray, uniqueArray];    
     return bubbleout;
 }
 
@@ -38,6 +38,7 @@ for(var Character of unique){
     var x = unique.indexOf(Character);
     number[x] = (inputArray.filter(checkCharacter)).length;
 }
+
 
 
 var bubbleoutput= bubbleSort(unique,number);
@@ -65,20 +66,12 @@ while(!done){
         
         var currentAgregate = number[total] + number[total-1];
         maps[i] = new Map();
-        /*
-        var binaryA;
-        var binaryB;
-        var characterA;
-        var characterB;
-        maps[i].set(binaryA, 1);
-        maps[i].set(characterA, unique[total]);
-        maps[i].set(binaryB, 0);
-        maps[i].set(characterB, unique[total-1]);
-        */
 
-        maps[i].set(unique[total].toString,1);
-        maps[i].set(unique[total-1].toString,1);
 
+        maps[i].set(unique[total].toString,'0');
+        maps[i].set(unique[total-1].toString,'1');
+        
+        console.log(unique[total-1]);
 
         number.splice(-2,2);
         unique.splice(-2,2);
@@ -91,7 +84,9 @@ while(!done){
         
         treedepth++;
         total--;
-        console.log(maps[i].size);
+        //console.log(maps[i].size);
+        //console.log(maps[i].get('0'));
+
         //console.log(maps[i].get(characterB));
 
 
