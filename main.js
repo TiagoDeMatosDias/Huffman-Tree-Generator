@@ -39,7 +39,7 @@ for(var Character of unique){
     number[x] = (inputArray.filter(checkCharacter)).length;
 }
 
-
+//console.log(unique[0]);
 
 var bubbleoutput= bubbleSort(unique,number);
 number = bubbleoutput[0];
@@ -68,10 +68,10 @@ while(!done){
         maps[i] = new Map();
 
 
-        maps[i].set(unique[total].toString,'0');
-        maps[i].set(unique[total-1].toString,'1');
+        maps[i].set('0', unique[total]);
+        maps[i].set('1', unique[total-1]);
         
-        console.log(unique[total-1]);
+        //console.log(unique[total-1]);
 
         number.splice(-2,2);
         unique.splice(-2,2);
@@ -85,13 +85,9 @@ while(!done){
         treedepth++;
         total--;
         //console.log(maps[i].size);
-        //console.log(maps[i].get('0'));
+        //console.log(maps[i].get('1'));
 
         //console.log(maps[i].get(characterB));
-
-
-
-
 
     }
     if(total ==0){
@@ -107,6 +103,35 @@ while(!done){
 
 
 let writeStream = fs.createWriteStream('Output.txt');
+
+var checkedkey='0';
+var checkedoutput='';
+done=false;
+
+var temp3 =unique;
+
+//console.log(typeof unique[0]);
+while(!done){
+    //console.log(unique[0]);
+   
+    if(typeof temp3[0] =="object" || typeof temp3.get('0') =="object"){
+        
+        temp3 = temp3[0];
+
+        //console.log(temp3);
+        try{
+            console.log(temp3[0]);
+        } finally{
+            console.log("test");
+        }
+
+    } else{
+        console.log(temp3[0]);
+        done=true;
+
+    }
+
+}
 
 /*for(var a = 0; a< unique.length;a++){
     var write=number[a] + " " + unique[a];
