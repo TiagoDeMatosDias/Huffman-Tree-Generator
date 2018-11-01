@@ -26,9 +26,8 @@ function bubbleSort(uniqueArray, numberArray){
                 uniqueArray[i]=temp2;
             }
         }
-    }
-    var bubbleout = [numberArray, uniqueArray];    
-    return bubbleout;
+    }    
+    return [numberArray, uniqueArray];    
 }
 
 var unique = inputArray.filter(onlyUnique);
@@ -41,9 +40,9 @@ for(var Character of unique){
 
 //console.log(unique[0]);
 
-var bubbleoutput= bubbleSort(unique,number);
-number = bubbleoutput[0];
-unique = bubbleoutput[1];
+var bubbleout= bubbleSort(unique,number);
+number = bubbleout[0];
+unique = bubbleout[1];
 
 //huffman
 
@@ -108,28 +107,36 @@ var checkedkey='0';
 var checkedoutput='';
 done=false;
 
-var temp3 =unique;
+var temp3 =maps;
 
 //console.log(typeof unique[0]);
 while(!done){
-    //console.log(unique[0]);
-   
-    if(typeof temp3[0] =="object" || typeof temp3.get('0') =="object"){
+    //console.log(temp3[0]);
+   /*
+    if( typeof temp3[0] =="object"){
         
-        temp3 = temp3[0];
+        //temp3 = temp3[0];
 
         //console.log(temp3);
         try{
-            console.log(temp3[0]);
+            //console.log(temp3[0]);
         } finally{
             console.log("test");
         }
+*/
 
-    } else{
-        console.log(temp3[0]);
+    //} else{
+        console.log(temp3[temp3.length-1].get('0'));
+        temp3=temp3[temp3.length-1].get('0');
+        console.log(temp3.get('0'));
+        temp3=temp3.get('0');
+        console.log(temp3);
+        temp3=temp3.get('0');
+        console.log(temp3);
         done=true;
 
-    }
+    //}
+
 
 }
 
