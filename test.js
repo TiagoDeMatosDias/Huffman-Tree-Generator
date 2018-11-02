@@ -47,18 +47,13 @@ for(var Character of unique){
     number[x] = (inputArray.filter(checkCharacter)).length;
 }
 
-//console.log(unique[0]);
-
 var bubbleout= bubbleSort(unique,number);
-
-
 
 var nodes = [];
 
 for(var i = 0; i< bubbleout[0].length;i++){
 nodes[i] = new node(bubbleout[0][i] , bubbleout[1][i] , '' , '' ,'' ,'');
 }
-//console.log(nodes[2].numberofCharacters);
 
 //huffman
 
@@ -88,12 +83,30 @@ for(var i = nodes.length-2; i >= 0;i-=2){
     
 }
 
-
+//check huffman
 console.log(nodes.length);
 for(var i = nodes.length-1; i>= 0; i--){
     console.log("Character " + nodes[i].character + " Number " + nodes[i].numberofCharacters + " Parent " + nodes[i].parent + " leftchild " + nodes[i].leftChild+ " rightchild " + nodes[i].rightchild);
 }
 
+//output huffman
+
+for(var i = 0; i < unique.length ; i++){
+    var done= false;
+    var c=0;
+
+        if(nodes[c].character.includes(unique[i])){
+            if(nodes[c].leftChild.includes(unique[i])){
+                
+            } else{
+
+            }
+
+        }
+    
+
+
+}
 
 
 let writeStream = fs.createWriteStream('Output.txt');
