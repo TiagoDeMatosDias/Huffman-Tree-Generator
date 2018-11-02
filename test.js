@@ -30,6 +30,15 @@ function bubbleSort(uniqueArray, numberArray){
     return [numberArray, uniqueArray];    
 }
 
+function node(numberofCharacters, character , binary ,parent , leftChild , rightchild ) {
+    this.numberofCharacters = numberofCharacters;
+    this.character = character;
+    this.binary = binary;
+    this.parent = parent;
+    this.leftChild = leftChild;
+    this.rightchild = rightchild;
+}
+
 var unique = inputArray.filter(onlyUnique);
 var number=[];
 
@@ -42,35 +51,24 @@ for(var Character of unique){
 
 var bubbleout= bubbleSort(unique,number);
 
-//node = [numberofCharacters , Character , binary , Parent , leftChild , rightchild]
 
-function node(numberofCharacters, character , binary ,parent , leftChild , rightchild ) {
-    this.numberofCharacters = numberofCharacters;
-    this.character = character;
-    this.binary = binary;
-    this.parent = parent;
-    this.leftChild = leftChild;
-    this.rightchild = rightchild;
-}
 
 var nodes = [];
 
 for(var i = 0; i< bubbleout[0].length;i++){
 nodes[i] = new node(bubbleout[0][i] , bubbleout[1][i] , '' , '' ,'' ,'');
 }
-console.log(nodes[2].numberofCharacters);
+//console.log(nodes[2].numberofCharacters);
 
 //huffman
 
 for(var i = nodes.length-2; i > 0;i--){
 
-    //console.log(nodes[i]);
-    //console.log(i);
 
-
-if(i!=-1 && nodes[i].parent==''){
+if(i!=0 && nodes[i].parent==''){
 
 var newNodeNumber = nodes[i+1].numberofCharacters + nodes[i].numberofCharacters;
+console.log(nodes[i+1].character + nodes[i].character);
 var newNodeCharacter = nodes[i+1].character + nodes[i].character;
 var newNodeLeftChild = nodes[i+1].character;
 var newNodeRightChild = nodes[i].character;
@@ -78,7 +76,7 @@ var newNodeRightChild = nodes[i].character;
 var x = i-1;
 var check = false;
 while(check ==false){
-    console.log(x);
+    //console.log(x);
     if(nodes[x].numberofCharacters >= newNodeNumber || x <= 0){        
         check =true;
     } else
@@ -89,14 +87,17 @@ while(check ==false){
 
 
 nodes.splice(x,0, new node(newNodeNumber , newNodeCharacter , '' , '' ,newNodeLeftChild ,newNodeRightChild));
+nodes[i+1+1].parent = nodes[x].character;
 nodes[i+1].parent = nodes[x].character;
-nodes[i].parent = nodes[x].character;
+
+i++;
 
 }
     
 }
 
-for(var i =0; i< nodes.length; i++){
+console.log(nodes.length);
+for(var i = nodes.length-1; i> 0; i--){
     console.log("Character " + nodes[i].character + " Number " + nodes[i].numberofCharacters + " Parent " + nodes[i].parent + " leftchild " + nodes[i].leftChild);
 }
 
@@ -106,6 +107,8 @@ let writeStream = fs.createWriteStream('Output.txt');
 
 
 writeStream.on('finish', () => {  
+    
+
     console.log('Wrote all data to file');
 });
 writeStream.end();  
