@@ -42,8 +42,6 @@ for(var Character of unique){
 
 var bubbleout= bubbleSort(unique,number);
 
-
-
 //node = [numberofCharacters , Character , binary , Parent , leftChild , rightchild]
 
 function node(numberofCharacters, character , binary ,parent , leftChild , rightchild ) {
@@ -64,31 +62,43 @@ console.log(nodes[2].numberofCharacters);
 
 //huffman
 
+for(var i = nodes.length-2; i > 0;i--){
 
-var final=[];
-var sum = [];
-var sumChar = [];
+    //console.log(nodes[i]);
+    //console.log(i);
 
-/*
-for(var i = bubbleout[0].length-1; i > 0;i--){
 
-    //console.log(bubbleout[0][i]);
-    //console.log(bubbleout[0][i-1]);
-    sum[i] = bubbleout[0][i] + bubbleout[0][i-1];
-    sumChar[i] = bubbleout[1][i] + bubbleout[1][i];
-    //console.log(sum[i]);
-    //console.log(sumChar[i]);
+if(i!=-1 && nodes[i].parent==''){
 
-    final.push([[0,bubbleout[1][i]],[1,bubbleout[1][i]]]);
-    
-    bubbleout[0][i-1]=bubbleout[0][i-1] + bubbleout[0][i];
-    bubbleout[1][i-1]=bubbleout[1][i-1] + bubbleout[1][i];
-    
+var newNodeNumber = nodes[i+1].numberofCharacters + nodes[i].numberofCharacters;
+var newNodeCharacter = nodes[i+1].character + nodes[i].character;
+var newNodeLeftChild = nodes[i+1].character;
+var newNodeRightChild = nodes[i].character;
 
+var x = i-1;
+var check = false;
+while(check ==false){
+    console.log(x);
+    if(nodes[x].numberofCharacters >= newNodeNumber || x <= 0){        
+        check =true;
+    } else
+    {
+        x--;
+    }
+}
+
+
+nodes.splice(x,0, new node(newNodeNumber , newNodeCharacter , '' , '' ,newNodeLeftChild ,newNodeRightChild));
+nodes[i+1].parent = nodes[x].character;
+nodes[i].parent = nodes[x].character;
 
 }
-*/
-//console.log(bubbleout);
+    
+}
+
+for(var i =0; i< nodes.length; i++){
+    console.log("Character " + nodes[i].character + " Number " + nodes[i].numberofCharacters + " Parent " + nodes[i].parent + " leftchild " + nodes[i].leftChild);
+}
 
 
 
