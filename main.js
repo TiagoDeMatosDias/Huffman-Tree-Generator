@@ -30,6 +30,15 @@ function bubbleSort(uniqueArray, numberArray){
     return [numberArray, uniqueArray];    
 }
 
+function node(numberofCharacters, character , binary ,parent , leftChild , rightchild ) {
+    this.numberofCharacters = numberofCharacters;
+    this.character = character;
+    this.binary = binary;
+    this.parent = parent;
+    this.leftChild = leftChild;
+    this.rightchild = rightchild;
+}
+
 var unique = inputArray.filter(onlyUnique);
 var number=[];
 
@@ -38,121 +47,74 @@ for(var Character of unique){
     number[x] = (inputArray.filter(checkCharacter)).length;
 }
 
-//console.log(unique[0]);
-
 var bubbleout= bubbleSort(unique,number);
-number = bubbleout[0];
-unique = bubbleout[1];
+
+var nodes = [];
+
+for(var i = 0; i< bubbleout[0].length;i++){
+nodes[i] = new node(bubbleout[0][i] , bubbleout[1][i] , '' , '' ,'' ,'');
+}
 
 //huffman
 
-var done=false;
-var total= unique.length - 1;
+for(var i = nodes.length-2; i >= 0;i-=2){
+    if(i>=0 && nodes[i].parent==''){
 
-var treedepth=0;
+    var newNodeNumber = nodes[i+1].numberofCharacters + nodes[i].numberofCharacters;
+    var newNodeCharacter = nodes[i+1].character + nodes[i].character;
+    var newNodeLeftChild = nodes[i+1].character;
+    var newNodeRightChild = nodes[i].character;
 
-var outputname=unique;
-var outputBinary=[];
-var outputNumber = number;
-
-var hufftemp1;
-
-var maps=[];
-
-while(!done){
-        
-    for(var i = 0; i< total;i++){
-        
-        var currentAgregate = number[total] + number[total-1];
-        maps[i] = new Map();
-
-
-        maps[i].set('0', unique[total]);
-        maps[i].set('1', unique[total-1]);
-        
-        //console.log(unique[total-1]);
-
-        number.splice(-2,2);
-        unique.splice(-2,2);
-        number.push(currentAgregate);
-        unique.push(maps[i]);
-        
-        bubbleoutput= bubbleSort(unique,number);
-        number = bubbleoutput[0];
-        unique = bubbleoutput[1];
-        
-        treedepth++;
-        total--;
-        //console.log(maps[i].size);
-        //console.log(maps[i].get('1'));
-
-        //console.log(maps[i].get(characterB));
-
+    var x = i-1;
+    var check = false;
+    for(var x = 0; x<nodes.length;x++){
+        if(nodes[x].numberofCharacters <= newNodeNumber && check==false){    
+            nodes.splice(x,0, new node(newNodeNumber , newNodeCharacter , '' , '' ,newNodeLeftChild ,newNodeRightChild));
+            i++;  
+            nodes[i+1].parent = nodes[x].character;
+            nodes[i].parent = nodes[x].character; 
+            check=true;
+        } 
     }
-    if(total ==0){
-        done = true;
+
 
 
     }
     
 }
 
+//check huffman
+console.log(nodes.length);
+for(var i = nodes.length-1; i>= 0; i--){
+    console.log("Character " + nodes[i].character + " Number " + nodes[i].numberofCharacters + " Parent " + nodes[i].parent + " leftchild " + nodes[i].leftChild+ " rightchild " + nodes[i].rightchild);
+}
+
+//output huffman
+
+for(var i = 0; i < unique.length ; i++){
+    var done= false;
+    var c=0;
+
+        if(nodes[c].character.includes(unique[i])){
+            if(nodes[c].leftChild.includes(unique[i])){
+                
+            } else{
+
+            }
+
+        }
+    
 
 
+}
 
 
 let writeStream = fs.createWriteStream('Output.txt');
 
-var checkedkey='0';
-var checkedoutput='';
-done=false;
-
-var temp3 =maps;
-
-//console.log(typeof unique[0]);
-while(!done){
-    //console.log(temp3[0]);
-   /*
-    if( typeof temp3[0] =="object"){
-        
-        //temp3 = temp3[0];
-
-        //console.log(temp3);
-        try{
-            //console.log(temp3[0]);
-        } finally{
-            console.log("test");
-        }
-*/
-
-    //} else{
-        console.log(temp3[temp3.length-1].get('0'));
-        temp3=temp3[temp3.length-1].get('0');
-        console.log(temp3.get('0'));
-        temp3=temp3.get('0');
-        console.log(temp3);
-        temp3=temp3.get('0');
-        console.log(temp3);
-        done=true;
-
-    //}
-
-
-}
-
-/*for(var a = 0; a< unique.length;a++){
-    var write=number[a] + " " + unique[a];
-    writeStream.write(write + "\n", 'UTF-8');      
-}*/
-
-var outputtotal;
-for(var a = treedepth; a > 0;a--){
-    
-    //console.log(maps[0].get(1));
-    
-}
 
 writeStream.on('finish', () => {  
+    
+
     console.log('Wrote all data to file');
 });
 writeStream.end();  
