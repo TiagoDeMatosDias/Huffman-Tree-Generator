@@ -1,1 +1,1 @@
-Hello This Is a Test ikgbsadfar
+Hello, This is a short test of the Huffman tree generator i created.
