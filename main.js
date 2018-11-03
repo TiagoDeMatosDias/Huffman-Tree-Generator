@@ -1,7 +1,4 @@
-var fs = require("fs");
-var inputArray = fs.readFileSync("Input.txt").toString();
-var splitChars = "";
-inputArray = inputArray.split(splitChars);
+//Required Functions
 
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
@@ -39,6 +36,31 @@ function node(numberofCharacters, character , binary ,parent , leftChild , right
     this.rightchild = rightchild;
 }
 
+function returnIndex(characterToCheck, nodesArray){
+    var index;    
+    for(var i = 0; i<nodesArray.length; i++ ){
+        if(nodesArray[i].character == characterToCheck){
+            index = i;
+        }
+    }
+    return index;
+}
+
+function returnChild(characterToCheck, nodesArray , index){
+    if(nodesArray[index].leftChild == characterToCheck){
+        return "0";
+    } else {
+        return "1";
+    }
+}
+
+//Start of the Logic
+
+//Parses the input text
+var fs = require("fs");
+var inputArray = fs.readFileSync("Input.txt").toString();
+var splitChars = "";
+inputArray = inputArray.split(splitChars);
 var unique = inputArray.filter(onlyUnique);
 var number=[];
 
@@ -48,14 +70,13 @@ for(var Character of unique){
 }
 
 var bubbleout= bubbleSort(unique,number);
-
 var nodes = [];
 
 for(var i = 0; i< bubbleout[0].length;i++){
 nodes[i] = new node(bubbleout[0][i] , bubbleout[1][i] , '' , '' ,'' ,'');
 }
 
-//huffman
+//Creating the Huffman tree 
 
 for(var i = nodes.length-2; i >= 0;i-=2){
     if(i>=0 && nodes[i].parent==''){
@@ -64,57 +85,47 @@ for(var i = nodes.length-2; i >= 0;i-=2){
     var newNodeCharacter = nodes[i+1].character + nodes[i].character;
     var newNodeLeftChild = nodes[i+1].character;
     var newNodeRightChild = nodes[i].character;
-
     var x = i-1;
     var check = false;
     for(var x = 0; x<nodes.length;x++){
         if(nodes[x].numberofCharacters <= newNodeNumber && check==false){    
-            nodes.splice(x,0, new node(newNodeNumber , newNodeCharacter , '' , '' ,newNodeLeftChild ,newNodeRightChild));
-            i++;  
-            nodes[i+1].parent = nodes[x].character;
-            nodes[i].parent = nodes[x].character; 
-            check=true;
-        } 
-    }
-
-
-
-    }
-    
+                nodes.splice(x,0, new node(newNodeNumber , newNodeCharacter , '' , '' ,newNodeLeftChild ,newNodeRightChild));
+                i++;  
+                nodes[i+1].parent = nodes[x].character;
+                nodes[i].parent = nodes[x].character; 
+                check=true;
+            } 
+        }
+    }    
 }
 
-//check huffman
-console.log(nodes.length);
-for(var i = nodes.length-1; i>= 0; i--){
-    console.log("Character " + nodes[i].character + " Number " + nodes[i].numberofCharacters + " Parent " + nodes[i].parent + " leftchild " + nodes[i].leftChild+ " rightchild " + nodes[i].rightchild);
-}
-
-//output huffman
+//Populating the binary
 
 for(var i = 0; i < unique.length ; i++){
-    var done= false;
-    var c=0;
+    var currentIndex = returnIndex(unique[i], nodes);
+    var UniqueIndex = currentIndex;
+    var parentIndex = returnIndex(nodes[currentIndex].parent, nodes);
+    var binary = '';
 
-        if(nodes[c].character.includes(unique[i])){
-            if(nodes[c].leftChild.includes(unique[i])){
-                
-            } else{
-
-            }
-
-        }
-    
-
-
+    while(parentIndex>=0){
+        binary = binary + returnChild(nodes[currentIndex].character, nodes , parentIndex);
+        currentIndex = parentIndex;
+        parentIndex = returnIndex(nodes[parentIndex].parent , nodes);        
+    }
+    nodes[UniqueIndex].binary = binary;
 }
 
+//Outputting Huffman into File
 
 let writeStream = fs.createWriteStream('Output.txt');
 
+for(var i = nodes.length-1; i>= 0; i--){
+    if(nodes[i].binary!=''){
+        writeStream.write(nodes[i].character + ' ' + nodes[i].binary + "\n", 'UTF-8' );        
+    }
+}
 
-writeStream.on('finish', () => {  
-    
-
+writeStream.on('finish', () => {     
     console.log('Wrote all data to file');
 });
 writeStream.end();  
