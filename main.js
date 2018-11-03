@@ -80,7 +80,6 @@ nodes[i] = new node(bubbleout[0][i] , bubbleout[1][i] , '' , '' ,'' ,'');
 
 for(var i = nodes.length-2; i >= 0;i-=2){
     if(i>=0 && nodes[i].parent==''){
-
     var newNodeNumber = nodes[i+1].numberofCharacters + nodes[i].numberofCharacters;
     var newNodeCharacter = nodes[i+1].character + nodes[i].character;
     var newNodeLeftChild = nodes[i+1].character;
