@@ -84,7 +84,6 @@ for(var i = nodes.length-2; i >= 0;i-=2){
     var newNodeCharacter = nodes[i+1].character + nodes[i].character;
     var newNodeLeftChild = nodes[i+1].character;
     var newNodeRightChild = nodes[i].character;
-    var x = i-1;
     var check = false;
     for(var x = 0; x<nodes.length;x++){
         if(nodes[x].numberofCharacters <= newNodeNumber && check==false){    
@@ -107,7 +106,7 @@ for(var i = 0; i < unique.length ; i++){
     var binary = '';
 
     while(parentIndex>=0){
-        binary = binary + returnChild(nodes[currentIndex].character, nodes , parentIndex);
+        binary = returnChild(nodes[currentIndex].character, nodes , parentIndex) + binary;
         currentIndex = parentIndex;
         parentIndex = returnIndex(nodes[parentIndex].parent , nodes);        
     }
